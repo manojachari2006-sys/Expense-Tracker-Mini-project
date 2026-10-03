@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f5">
+  <title>Dashboard · Ledgerly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <script defer src="js/api.js"></script>
+  <script defer src="js/auth.js"></script>
+  <script defer src="js/expense.js"></script>
+  <script defer src="js/dashboard.js"></script>
+</head>
+<body class="dashboard-page">
+  <header class="app-header">
+    <a class="brand app-brand" href="dashboard.html" aria-label="Ledgerly dashboard">
+      <span class="brand-mark" aria-hidden="true">L</span><span>ledgerly</span>
+    </a>
+    <div class="header-user">
+      <span class="user-avatar" id="user-avatar" aria-hidden="true">L</span>
+      <span class="header-user-details"><strong class="header-user-name" id="header-user-name">Your account</strong><span id="header-user-email"></span></span>
+      <button class="button button-quiet theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle dark mode"><span id="theme-toggle-icon" aria-hidden="true">☾</span><span class="theme-toggle-label" id="theme-toggle-label">Dark</span></button>
+      <button class="button button-quiet" id="logout-button" type="button">Sign out</button>
+    </div>
+  </header>
+  <div class="dashboard-layout">
+    <aside class="sidebar" aria-label="Main navigation">
+      <p class="sidebar-label">WORKSPACE</p>
+      <nav class="side-nav">
+        <a class="nav-link is-active" href="#overview" aria-current="page"><span class="nav-icon" aria-hidden="true">⌂</span>Overview</a>
+        <a class="nav-link" href="#expenses"><span class="nav-icon" aria-hidden="true">↗</span>Expenses</a>
+      </nav>
+      <div class="sidebar-bottom"><span class="sidebar-orbit" aria-hidden="true">✦</span><p>Clarity comes<br>one choice at a time.</p></div>
+    </aside>
+
+    <main class="dashboard-main" id="overview">
+      <div class="dashboard-heading">
+        <div>
+          <p class="eyebrow" id="dashboard-date">YOUR MONEY, IN FOCUS</p>
+          <h1 id="welcome-heading">Welcome back.</h1>
+          <p class="dashboard-intro">Here’s an overview of your spending.</p>
+        </div>
+        <button class="button button-primary add-expense-button" id="add-expense-button" type="button"><span aria-hidden="true">＋</span> Add expense</button>
+      </div>
+
+      <section class="summary-grid" aria-label="Expense summary">
+        <article class="summary-card summary-primary"><div class="summary-card-top"><span class="summary-icon" aria-hidden="true">₹</span><span class="summary-kicker">ALL TIME</span></div><p>Total expenses</p><strong id="total-expenses">—</strong><small>Across your transactions</small></article>
+        <article class="summary-card"><div class="summary-card-top"><span class="summary-icon summary-icon-soft" aria-hidden="true">#</span><span class="summary-kicker">ACTIVITY</span></div><p>Transactions</p><strong id="transaction-count">—</strong><small>Recorded expenses</small></article>
+        <article class="summary-card"><div class="summary-card-top"><span class="summary-icon summary-icon-warm" aria-hidden="true">◷</span><span class="summary-kicker">THIS MONTH</span></div><p>Monthly spending</p><strong id="monthly-expenses">—</strong><small id="current-month-label">Current month</small></article>
+        <article class="summary-card"><div class="summary-card-top"><span class="summary-icon summary-icon-lilac" aria-hidden="true">↗</span><span class="summary-kicker">PER TRANSACTION</span></div><p>Average expense</p><strong id="average-expense">—</strong><small>Average amount</small></article>
+      </section>
+
+      <section class="analytics-section" aria-labelledby="analytics-heading">
+        <div class="analytics-heading"><div><p class="eyebrow">SPENDING PATTERNS</p><h2 id="analytics-heading">Your analytics</h2><p class="analytics-caption">A visual summary of your recorded expenses.</p></div></div>
+        <div class="analytics-grid" id="analytics-grid" hidden>
+          <article class="analytics-card category-analytics"><div class="analytics-card-heading"><div><h3>Spending by category</h3><p>All recorded expenses</p></div><span class="analytics-mark" aria-hidden="true">◉</span></div>
+            <div class="category-chart-layout"><div class="donut-wrap"><svg class="donut-chart" id="category-chart" viewBox="0 0 180 180" role="img" aria-label="Spending distribution by category"></svg><div class="donut-center"><strong id="category-chart-total">₹0.00</strong><span>Total spent</span></div></div><div class="category-legend" id="category-legend"></div></div>
+            <p class="analytics-empty" id="category-chart-empty" hidden>Add expenses to see how spending is distributed.</p>
+          </article>
+          <article class="analytics-card trend-analytics"><div class="analytics-card-heading"><div><h3>Monthly trend</h3><p>Spending by calendar month</p></div><span class="analytics-mark analytics-mark-trend" aria-hidden="true">↗</span></div>
+            <div class="trend-chart-wrap" id="trend-chart-wrap"><svg class="trend-chart" id="trend-chart" viewBox="0 0 620 220" role="img" aria-label="Monthly spending trend"></svg></div>
+            <p class="analytics-empty" id="trend-chart-empty" hidden>More expense dates are needed to show a monthly trend.</p>
+          </article>
+        </div>
+        <div class="analytics-loading" id="analytics-loading" aria-label="Loading spending analytics"><span></span><span></span></div>
+      </section>
+
+      <section class="expense-section" id="expenses" aria-labelledby="expenses-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR ACTIVITY</p><div class="section-title-row"><h2 id="expenses-heading">Recent transactions</h2><span class="active-filter-badge" id="active-filter-badge" hidden></span></div><p class="section-caption" id="expense-count-label">Your latest transactions</p></div>
+          <button class="button button-outline add-expense-secondary" id="add-expense-secondary" type="button">＋ Add expense</button>
+        </div>
+
+        <form class="filter-panel" id="filter-form">
+          <label class="filter-field filter-category"><span>Category</span><select id="category-filter" name="category"><option value="">All categories</option></select></label>
+          <label class="filter-field filter-date"><span>From</span><input id="start-date-filter" name="startDate" type="date"></label>
+          <label class="filter-field filter-date"><span>To</span><input id="end-date-filter" name="endDate" type="date"></label>
+          <label class="filter-field filter-sort"><span>Sort by</span><select id="sort-filter" name="sortBy"><option value="">Default order</option><option value="date">Date</option><option value="amount">Amount</option><option value="category">Category</option><option value="description">Description</option><option value="id">ID</option></select></label>
+          <label class="filter-field filter-direction"><span>Order</span><select id="sort-direction" name="direction"><option value="desc">Newest / high first</option><option value="asc">Oldest / low first</option></select></label>
+          <div class="filter-actions"><button class="button button-filter" type="submit">Apply</button><button class="button button-reset" id="reset-filters" type="button">Reset</button></div>
+        </form>
+        <p class="filter-note" id="filter-note" hidden></p>
+
+        <div class="list-status" id="list-status" role="status" aria-live="polite">Loading expenses…</div>
+        <div class="table-wrap" id="expense-table-wrap" hidden>
+          <table class="expense-table">
+            <thead><tr><th scope="col">Category</th><th scope="col">Description</th><th scope="col">Date</th><th scope="col" class="amount-heading">Amount</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+            <tbody id="expense-table-body"></tbody>
+          </table>
+        </div>
+        <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-icon" aria-hidden="true">＋</div><h3 id="empty-title">No expenses yet</h3><p id="empty-description">Add your first expense to begin building a clearer picture.</p>
+          <button class="button button-primary empty-add-button" id="empty-add-button" type="button">Add your first expense</button>
+          <button class="empty-clear-button" id="empty-clear-button" type="button" hidden>Clear filters</button>
+        </div>
+        <nav class="pagination" id="pagination" aria-label="Expense pages" hidden>
+          <span class="pagination-summary" id="pagination-summary"></span>
+          <div class="pagination-controls"><button class="page-button" id="previous-page" type="button">← Previous</button><span class="page-number" id="page-number"></span><button class="page-button" id="next-page" type="button">Next →</button></div>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="expense-dialog" id="expense-dialog" aria-labelledby="expense-dialog-title">
+    <form class="expense-form" id="expense-form" novalidate>
+      <div class="dialog-header"><div><p class="eyebrow" id="dialog-eyebrow">NEW TRANSACTION</p><h2 id="expense-dialog-title">Add expense</h2></div><button class="dialog-close" id="close-expense-dialog" type="button" aria-label="Close dialog">×</button></div>
+      <p class="dialog-intro">Enter the details exactly as you’d like them recorded.</p>
+      <div class="form-field"><label for="expense-amount">Amount</label><div class="amount-input-wrap"><span aria-hidden="true">₹</span><input id="expense-amount" name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0.00" required></div><small class="input-error" data-error-for="amount"></small></div>
+      <div class="form-field"><label for="expense-category">Category</label><input id="expense-category" name="category" type="text" list="expense-categories" placeholder="e.g. Food" required><datalist id="expense-categories"></datalist><small class="input-error" data-error-for="category"></small></div>
+      <div class="form-field"><label for="expense-description">Description</label><input id="expense-description" name="description" type="text" placeholder="What was this expense for?" required><small class="input-error" data-error-for="description"></small></div>
+      <div class="form-field"><label for="expense-date">Date</label><input id="expense-date" name="date" type="date" required><small class="input-error" data-error-for="date"></small></div>
+      <p class="form-error-summary" id="expense-form-error" role="alert" hidden></p>
+      <div class="dialog-actions"><button class="button button-reset" id="cancel-expense" type="button">Cancel</button><button class="button button-primary save-expense-button" id="save-expense-button" type="submit"><span id="save-expense-label">Save expense</span><span class="small-spinner" aria-hidden="true"></span></button></div>
+    </form>
+  </dialog>
+  <dialog class="confirm-dialog" id="delete-dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-description">
+    <div class="confirm-dialog-content"><span class="confirm-icon" aria-hidden="true">!</span><h2 id="delete-dialog-title">Delete expense?</h2><p id="delete-dialog-description">Are you sure you want to permanently delete this expense?</p><div class="confirm-actions"><button class="button button-reset" id="cancel-delete" type="button">Cancel</button><button class="button delete-confirm-button" id="confirm-delete" type="button">Delete expense</button></div></div>
+  </dialog>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <footer class="dashboard-footer">Ledgerly <span>·</span> Small steps add up.</footer>
+</body>
+</html>

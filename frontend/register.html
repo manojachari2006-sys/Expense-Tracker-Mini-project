@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f5">
+  <title>Create account · Ledgerly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <script defer src="js/api.js"></script>
+  <script defer src="js/auth.js"></script>
+</head>
+<body class="auth-page" data-page="register">
+  <main class="auth-layout">
+    <section class="brand-panel" aria-labelledby="brand-title">
+      <a class="brand" href="index.html" aria-label="Ledgerly home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>ledgerly</span>
+      </a>
+      <div class="brand-copy">
+        <p class="eyebrow">A fresh start for your finances</p>
+        <h1 id="brand-title">Good habits<br>start with a view.</h1>
+        <p class="brand-description">Bring your everyday expenses into focus and build a better relationship with money.</p>
+      </div>
+      <div class="value-note">
+        <span class="value-icon" aria-hidden="true">↗</span>
+        <div><strong>Clarity over clutter</strong><p>One simple place to understand your spending.</p></div>
+      </div>
+      <p class="brand-footer">Your account is yours. Your expenses stay yours.</p>
+    </section>
+
+    <section class="form-panel" aria-labelledby="form-title">
+      <div class="mobile-brand"><span class="brand-mark" aria-hidden="true">L</span><span>ledgerly</span></div>
+      <div class="auth-card register-card">
+        <p class="eyebrow form-eyebrow">GET STARTED</p>
+        <h2 id="form-title">Create your account</h2>
+        <p class="form-intro">A few details, then you’re ready to begin.</p>
+        <div class="notice" id="form-notice" role="status" aria-live="polite" hidden></div>
+        <form id="register-form" novalidate>
+          <label class="field-label" for="name">Full name</label>
+          <input class="text-input" id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+          <label class="field-label" for="email">Email address</label>
+          <input class="text-input" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label class="field-label" for="password">Password</label>
+          <div class="password-wrap">
+            <input class="text-input" id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a password" required>
+            <button class="password-toggle" type="button" data-password-toggle="password" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <label class="field-label" for="confirm-password">Confirm password</label>
+          <div class="password-wrap">
+            <input class="text-input" id="confirm-password" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Enter it again" required>
+            <button class="password-toggle" type="button" data-password-toggle="confirm-password" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <div class="field-error" id="register-field-error" aria-live="polite"></div>
+          <button class="button button-primary submit-button" type="submit">
+            <span class="button-label">Create account</span><span class="button-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+        <p class="auth-switch">Already have an account? <a href="index.html">Sign in</a></p>
+        <p class="form-legal">Your password is protected by secure hashing on the server.</p>
+      </div>
+      <footer class="form-footer">Personal finance, made a little simpler.</footer>
+    </section>
+  </main>
+</body>
+</html>

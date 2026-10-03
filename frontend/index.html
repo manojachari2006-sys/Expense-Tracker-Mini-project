@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f5">
+  <title>Sign in · Ledgerly</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <script defer src="js/api.js"></script>
+  <script defer src="js/auth.js"></script>
+</head>
+<body class="auth-page" data-page="login">
+  <main class="auth-layout">
+    <section class="brand-panel" aria-labelledby="brand-title">
+      <a class="brand" href="index.html" aria-label="Ledgerly home">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span>ledgerly</span>
+      </a>
+      <div class="brand-copy">
+        <p class="eyebrow">A clearer view of your money</p>
+        <h1 id="brand-title">Make room for<br>what matters.</h1>
+        <p class="brand-description">A calmer way to keep track of everyday spending and make confident choices.</p>
+      </div>
+      <div class="preview-card" aria-label="Ledgerly features">
+        <div class="preview-topline"><span>MADE FOR EVERYDAY CLARITY</span><span class="preview-dot"></span></div>
+        <div class="preview-feature"><span aria-hidden="true">01</span><div><strong>See your spending</strong><p>Keep everyday expenses in one place.</p></div></div>
+        <div class="preview-feature"><span aria-hidden="true">02</span><div><strong>Find your rhythm</strong><p>Build a clearer picture, one entry at a time.</p></div></div>
+        <div class="preview-feature"><span aria-hidden="true">03</span><div><strong>Stay in control</strong><p>Your account and expenses stay yours.</p></div></div>
+      </div>
+      <p class="brand-footer">Small steps add up. Keep your spending in view.</p>
+    </section>
+
+    <section class="form-panel" aria-labelledby="form-title">
+      <div class="mobile-brand"><span class="brand-mark" aria-hidden="true">L</span><span>ledgerly</span></div>
+      <div class="auth-card">
+        <p class="eyebrow form-eyebrow">WELCOME BACK</p>
+        <h2 id="form-title">Sign in to your account</h2>
+        <p class="form-intro">Your financial picture is right where you left it.</p>
+        <div class="notice" id="form-notice" role="status" aria-live="polite" hidden></div>
+        <form id="login-form" novalidate>
+          <label class="field-label" for="email">Email address</label>
+          <input class="text-input" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <div class="field-heading"><label class="field-label" for="password">Password</label></div>
+          <div class="password-wrap">
+            <input class="text-input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            <button class="password-toggle" type="button" data-password-toggle="password" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <div class="field-error" id="login-field-error" aria-live="polite"></div>
+          <button class="button button-primary submit-button" type="submit">
+            <span class="button-label">Sign in</span><span class="button-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+        <p class="auth-switch">New to Ledgerly? <a href="register.html">Create an account</a></p>
+        <p class="form-legal">By continuing, you agree to use Ledgerly responsibly.</p>
+      </div>
+      <footer class="form-footer">Personal finance, made a little simpler.</footer>
+    </section>
+  </main>
+</body>
+</html>
